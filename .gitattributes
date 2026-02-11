@@ -1,1 +1,1 @@
-slurm/output/* filter=lfs diff=lfs merge=lfs -text
+slurm/output/** filter=lfs diff=lfs merge=lfs -text
