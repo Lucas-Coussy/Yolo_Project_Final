@@ -4,12 +4,20 @@ import random
 import hashlib
 import xml.etree.ElementTree as ET
 from pathlib import Path
+import sys
 
 import subprocess
 
+if len(sys.argv) < 2:
+    raise ValueError("Usage: Format_dataset.py <project_dir>")
+
+project_dir = Path(sys.argv[1])
+
+print(f"Project Directory: {project_dir}")
+
 ### download data
 
-def download_voc_from_kaggle(dataset="bardiaardakanian/voc0712", dest="/home/lcoussy/Yolo_Project_Final/VOC_dataset"):
+def download_voc_from_kaggle(dataset="bardiaardakanian/voc0712", dest=f"{project_dir}/VOC_dataset"):
     # Only download if not already present
     if not os.path.exists(dest):
         os.makedirs(dest, exist_ok=True)
@@ -29,8 +37,8 @@ def download_voc_from_kaggle(dataset="bardiaardakanian/voc0712", dest="/home/lco
 ### Format data
 
 # ---------------- CONFIG ----------------
-VOC_ROOT = r"/home/lcoussy/Yolo_Project_Final/VOC_dataset/VOC_dataset/VOCdevkit"
-OUT_ROOT = "/home/lcoussy/Yolo_Project_Final/dataset"
+VOC_ROOT = rf"{project_dir}/VOC_dataset/VOC_dataset/VOCdevkit"
+OUT_ROOT = f"{project_dir}/dataset"
 TRAIN_SPLIT = 0.9
 SEED = 42
 USE_SETS = ["VOC2007", "VOC2012"]

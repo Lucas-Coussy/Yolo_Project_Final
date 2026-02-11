@@ -1,1 +1,8 @@
 **.venv**
+
+**__pycache__**
+
+VOC_dataset**
+uv_train_env**
+dataset**
+data**

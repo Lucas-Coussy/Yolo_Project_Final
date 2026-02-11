@@ -11,14 +11,14 @@
 # --- Config ---
 MODEL_VERSION=${SLURM_JOB_NAME##*-} # v{Version}.{BatchSize}.{EpochNumber}
 # Pour run le job :
-# sbatch --job-name=yolo_project_final_train-v{Version}.{BatchSize}.{EpochNumber} slurm/run_train.sbatch
+# sbatch --parsable --job-name=yolo_project_final_train-v{Version}.{BatchSize}.{EpochNumber} slurm/run_train.sbatch
 
 PROJECT_ROOT=$(pwd)
 MAX_JOBS_TO_KEEP=3
 
 unset VIRTUAL_ENV
 export PATH="$HOME/.local/bin:$PATH" 
-UV_PROJECT=$PROJECT_ROOT/.uv_train_env
+UV_PROJECT=$PROJECT_ROOT/uv_train_env
 
 NOTEBOOK_PATH="$PROJECT_ROOT/test_CNN_pytorch-pretrained_backbone.ipynb"
 OUTPUT_NOTEBOOK="$PROJECT_ROOT/slurm/output/notebook/trained_out_${MODEL_VERSION}_${SLURM_JOB_ID}.ipynb"
@@ -45,7 +45,7 @@ if [ ! -f "pyproject.toml" ]; then
 fi
 
 uv pip install -r "$PROJECT_ROOT/slurm/requirements.txt"
-uv pip install torch papermill jupyter
+uv pip install torch papermill jupyter kaggle
 
 export TRANSFORMERS_VERBOSITY=info
 
